@@ -71,34 +71,18 @@ export default class QRCornerDot {
 
   _basicExtraRounded(args: BasicFigureDrawArgs): void {
     const { size, x, y } = args;
-    const dotSize = size / 7;
+
 
     this._rotateFigure({
       ...args,
       draw: () => {
-        this._element = this._window.document.createElementNS("http://www.w3.org/2000/svg", "path");
-        this._element.setAttribute("clip-rule", "evenodd");
-        this._element.setAttribute(
-          "d",
-          `M ${x} ${y + 2.5 * dotSize}` +
-            `v ${2 * dotSize}` +
-            `a ${2.5 * dotSize} ${2.5 * dotSize}, 0, 0, 0, ${dotSize * 2.5} ${dotSize * 2.5}` +
-            `h ${2 * dotSize}` +
-            `a ${2.5 * dotSize} ${2.5 * dotSize}, 0, 0, 0, ${dotSize * 2.5} ${-dotSize * 2.5}` +
-            `v ${-2 * dotSize}` +
-            `a ${2.5 * dotSize} ${2.5 * dotSize}, 0, 0, 0, ${-dotSize * 2.5} ${-dotSize * 2.5}` +
-            `h ${-2 * dotSize}` +
-            `a ${2.5 * dotSize} ${2.5 * dotSize}, 0, 0, 0, ${-dotSize * 2.5} ${dotSize * 2.5}` +
-            `M ${x + 2.5 * dotSize} ${y + dotSize}` +
-            `h ${2 * dotSize}` +
-            `a ${1.5 * dotSize} ${1.5 * dotSize}, 0, 0, 1, ${dotSize * 1.5} ${dotSize * 1.5}` +
-            `v ${2 * dotSize}` +
-            `a ${1.5 * dotSize} ${1.5 * dotSize}, 0, 0, 1, ${-dotSize * 1.5} ${dotSize * 1.5}` +
-            `h ${-2 * dotSize}` +
-            `a ${1.5 * dotSize} ${1.5 * dotSize}, 0, 0, 1, ${-dotSize * 1.5} ${-dotSize * 1.5}` +
-            `v ${-2 * dotSize}` +
-            `a ${1.5 * dotSize} ${1.5 * dotSize}, 0, 0, 1, ${dotSize * 1.5} ${-dotSize * 1.5}`
-        );
+        this._element = this._window.document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        this._element.setAttribute("x", String(x));
+        this._element.setAttribute("y", String(y));
+        this._element.setAttribute("width", String(size));
+        this._element.setAttribute("height", String(size));
+        this._element.setAttribute("rx", String(x*2));
+        this._element.setAttribute("ry", String(y*2));
       }
     });
   }
