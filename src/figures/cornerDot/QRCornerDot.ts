@@ -21,6 +21,9 @@ export default class QRCornerDot {
       case cornerDotTypes.square:
         drawFunction = this._drawSquare;
         break;
+      case cornerDotTypes.extraRounded:
+          drawFunction = this._drawExtraRounded;
+          break;
       case cornerDotTypes.dot:
       default:
         drawFunction = this._drawDot;
@@ -66,11 +69,49 @@ export default class QRCornerDot {
     });
   }
 
+  _basicExtraRounded(args: BasicFigureDrawArgs): void {
+    const { size, x, y } = args;
+    const dotSize = size / 7;
+
+    this._rotateFigure({
+      ...args,
+      draw: () => {
+        this._element = this._window.document.createElementNS("http://www.w3.org/2000/svg", "path");
+        this._element.setAttribute("clip-rule", "evenodd");
+        this._element.setAttribute(
+          "d",
+          `M ${x} ${y + 2.5 * dotSize}` +
+            `v ${2 * dotSize}` +
+            `a ${2.5 * dotSize} ${2.5 * dotSize}, 0, 0, 0, ${dotSize * 2.5} ${dotSize * 2.5}` +
+            `h ${2 * dotSize}` +
+            `a ${2.5 * dotSize} ${2.5 * dotSize}, 0, 0, 0, ${dotSize * 2.5} ${-dotSize * 2.5}` +
+            `v ${-2 * dotSize}` +
+            `a ${2.5 * dotSize} ${2.5 * dotSize}, 0, 0, 0, ${-dotSize * 2.5} ${-dotSize * 2.5}` +
+            `h ${-2 * dotSize}` +
+            `a ${2.5 * dotSize} ${2.5 * dotSize}, 0, 0, 0, ${-dotSize * 2.5} ${dotSize * 2.5}` +
+            `M ${x + 2.5 * dotSize} ${y + dotSize}` +
+            `h ${2 * dotSize}` +
+            `a ${1.5 * dotSize} ${1.5 * dotSize}, 0, 0, 1, ${dotSize * 1.5} ${dotSize * 1.5}` +
+            `v ${2 * dotSize}` +
+            `a ${1.5 * dotSize} ${1.5 * dotSize}, 0, 0, 1, ${-dotSize * 1.5} ${dotSize * 1.5}` +
+            `h ${-2 * dotSize}` +
+            `a ${1.5 * dotSize} ${1.5 * dotSize}, 0, 0, 1, ${-dotSize * 1.5} ${-dotSize * 1.5}` +
+            `v ${-2 * dotSize}` +
+            `a ${1.5 * dotSize} ${1.5 * dotSize}, 0, 0, 1, ${dotSize * 1.5} ${-dotSize * 1.5}`
+        );
+      }
+    });
+  }
+
   _drawDot({ x, y, size, rotation }: DrawArgs): void {
     this._basicDot({ x, y, size, rotation });
   }
 
   _drawSquare({ x, y, size, rotation }: DrawArgs): void {
     this._basicSquare({ x, y, size, rotation });
+  }
+
+  _drawExtraRounded({ x, y, size, rotation }: DrawArgs): void {
+    this._basicExtraRounded({ x, y, size, rotation });
   }
 }
