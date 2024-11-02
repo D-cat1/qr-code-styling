@@ -1,5 +1,5 @@
 {
-  "name": "@d-cat1/styled-qrcode",
+  "name": "styled-qrcode-gen",
   "version": "1.8.6",
   "description": "Add a style and an image to your QR code",
   "main": "lib/qr-code-styling.js",
